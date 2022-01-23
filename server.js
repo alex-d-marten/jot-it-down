@@ -1,18 +1,3 @@
-/* HTML Routes Needed
-// Need a GET /notes that returns the notes.html
-
-// GET * should return the index.html file
-
- */
-
-
-/* API Routes needed 
-// GET /api/notes should read the db.json file and return all saved notes as JSON
-
-// POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client.
-    // Need to find a way to give each note a unique id when it is saved (npm packages should help with this)
-*/
-
 // import modules
 const express = require('express');
 const path = require('path');
@@ -21,7 +6,6 @@ const PORT = process.env.PORT || 3001;
 const parser = require('./lib/parser')
 const notes = require('./db/db.json')
 const fs = require('fs');
-
 
 // add in middleware
 app.use(express.urlencoded({ extended: true }))
@@ -39,7 +23,12 @@ app.get('/api/notes', (req, res) => {
 })
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './db/db.json'))
+    let results = notes;
+    console.log(results)
+    
+    if(results) {
+        res.json(results);
+    }
 })
 
 app.get('/public/assets/js/index.js', (req, res) => {

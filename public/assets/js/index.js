@@ -29,6 +29,7 @@ const getNotes = () =>
   fetch('/notes', {
     method: 'GET',
     headers: {
+      
       'Content-Type': 'application/json',
     },
   });
@@ -56,14 +57,17 @@ const deleteNote = (id) =>
     },
   });
 
-const renderActiveNote = () => {
+async function renderActiveNote() {
   hide(saveNoteBtn);
   console.log(activeNote)
-  if (activeNote.id) {
+  if (activeNote) {
+    const response = await getNotes()
+    const notes = await response.json()
+    console.log(notes)
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
-    noteTitle.value = activeNote.title;
-    noteText.value = activeNote.text;
+    noteTitle.value = notes[activeNote].title
+    noteText.value = notes[activeNote].text
   } else {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
@@ -101,7 +105,7 @@ const handleNoteDelete = (e) => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
-  activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
+  activeNote = e.target.parentElement.getAttribute('data-note')
   renderActiveNote();
 };
 
@@ -121,7 +125,8 @@ const handleRenderSaveBtn = () => {
 };
 
 const noteListClicked = (e) => {
-  console.log(e.target.parentElement)
+  activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
+  console.log(activeNote)
   // handleNoteView(e)
 }
 
@@ -130,5 +135,5 @@ if (window.location.pathname === '/api/notes') {
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
-  noteList.addEventListener('click', noteListClicked);
+  noteList.addEventListener('click', handleNoteView);
 }
