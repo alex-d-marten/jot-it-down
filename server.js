@@ -27,11 +27,18 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static('public'))
 
-if(notesArray.length > 0) {
+if(notesArray.length > 1) {
+   console.log('multiple notes present')
+   notesArray.forEach((element, index) => {
+    //    console.log(element)
+       const note = new Note(notesArray[index].title, notesArray[index].text)
+       console.log(note)
+   }) 
+} else if(notesArray.length = 1) {
     const note = new Note(notesArray[0].title, notesArray[0].text)
     console.log(note)
-    // console.log(notesArray)
-} else {
+}
+else {
     console.log("No notes found")
 }
 
