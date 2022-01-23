@@ -34,7 +34,9 @@ module.exports = templateData => {
             <!-- insert current notes here -->
             <div class="col-4 list-container">
                 <div class="card">
-                <ul class="list-group">${templateData}</ul>
+                    <ul class="list-group">
+                        ${templateData}
+                    </ul>
                 </div>
         </div>
 
