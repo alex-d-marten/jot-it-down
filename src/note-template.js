@@ -1,10 +1,10 @@
 // function to generate the note content
 const generateNoteList = noteData => {
     return `
-    <li>
+    <div>
         <h1>${noteData.getTitle()}</h1>
         <p>${noteData.getText()}</p>
-    </li>
+    </div>
     `
 }
 
