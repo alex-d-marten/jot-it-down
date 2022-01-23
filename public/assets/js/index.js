@@ -60,7 +60,7 @@ const deleteNote = (id) =>
 async function renderActiveNote() {
   hide(saveNoteBtn);
   console.log(activeNote)
-  if (activeNote) {
+  if (typeof activeNote === 'string') {
     const response = await getNotes()
     const notes = await response.json()
     console.log(notes)
