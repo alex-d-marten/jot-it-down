@@ -18,29 +18,14 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const Note = require('./lib/Note');
-const notesArray = require('./db/db.json')
-
+const parser = require('./lib/parser')
 
 // add in middleware
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static('public'))
 
-if(notesArray.length > 1) {
-   console.log('multiple notes present')
-   notesArray.forEach((element, index) => {
-    //    console.log(element)
-       const note = new Note(notesArray[index].title, notesArray[index].text)
-       console.log(note)
-   }) 
-} else if(notesArray.length = 1) {
-    const note = new Note(notesArray[0].title, notesArray[0].text)
-    console.log(note)
-}
-else {
-    console.log("No notes found")
-}
+parser()
 
 // GET route for index.html
 app.get('/api/index', (req, res) => {

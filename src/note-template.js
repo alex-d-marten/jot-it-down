@@ -1,13 +1,17 @@
-const Note = require('../lib/Note');
-
 // function to generate the note content
-const generateContent = noteData => {
-    const note = new Note(noteData);
-
+const generateNoteList = noteData => {
     return `
     <li>
-        <h1>${note.getTitle()}</h1>
-        <p>${note.getText()}</p>
+        <h1>${noteData.getTitle()}</h1>
+        <p>${noteData.getText()}</p>
     </li>
+    `
+}
+
+
+module.exports = templateData => {
+    return `
+${generateNoteList(templateData)}
+            
     `
 }
