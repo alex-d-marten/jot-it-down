@@ -37,8 +37,6 @@ app.get('/public/assets/js/index.js', (req, res) => {
 
 function createNewNote(body, notesArray) {
     const note = body;
-    console.log(note)
-    console.log(notesArray)
     notesArray.push(note);
     fs.writeFileSync(
         path.join(__dirname, './db/db.json'),
@@ -55,6 +53,28 @@ app.post('/notes', (req, res) => {
     res.json(note)
     parser()
 })
+
+/* Potetntial code for deleting a note, not working currently
+function deleteNote(queryId, notesArray) {
+    const noteId = queryId;
+    console.log(notesArray)
+    console.log(noteId)
+    notesArray.splice(noteId, 1)
+    console.log(notesArray)
+    fs.writeFileSync(
+        path.join(__dirname, '/db/db.json'),
+        JSON.stringify(notesArray, null, 2)
+    )
+
+    return notesArray
+}
+
+app.delete('/notes/:id', (req, res) => {
+    deleteNote(req.params.id, notes)
+    res.json({
+        message: 'Deleted',
+    })
+}) */
 
 parser()
 
