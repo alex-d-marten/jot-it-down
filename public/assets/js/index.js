@@ -3,8 +3,11 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-let deleteNoteBtn;
+// let deleteNoteBtn;
+// activeNote is used to keep track of the note in the textarea
+let activeNote = {};
 
+// assign querySelectors
 if (window.location.pathname === '/api/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -24,9 +27,7 @@ const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-// activeNote is used to keep track of the note in the textarea
-let activeNote = {};
-
+// fetch call to get the notes from the db.json file
 const getNotes = () =>
   fetch('/notes', {
     method: 'GET',
@@ -36,8 +37,8 @@ const getNotes = () =>
     },
   });
 
+// fetch call to save a new note
 const saveNote = (note) => {
-  console.log(note)
   fetch('/notes', {
     method: 'POST',
     headers: {
@@ -47,6 +48,7 @@ const saveNote = (note) => {
     body: JSON.stringify(note),
   })
   .then(() => {
+    // reload the page to show new note in left hand column
     location.reload()
   });
 }
@@ -124,6 +126,7 @@ const handleRenderSaveBtn = () => {
   }
 };
 
+// event listeners for corresponding querySelectors
 if (window.location.pathname === '/api/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
