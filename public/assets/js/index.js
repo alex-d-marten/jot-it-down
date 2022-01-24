@@ -8,7 +8,7 @@ let noteList;
 let activeNote = {};
 
 // assign querySelectors
-if (window.location.pathname === '/api/notes') {
+if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
@@ -29,7 +29,7 @@ const hide = (elem) => {
 
 // fetch call to get the notes from the db.json file
 const getNotes = () =>
-  fetch('/notes', {
+  fetch('/api/notes', {
     method: 'GET',
     headers: {
       
@@ -127,7 +127,7 @@ const handleRenderSaveBtn = () => {
 };
 
 // event listeners for corresponding querySelectors
-if (window.location.pathname === '/api/notes') {
+if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
